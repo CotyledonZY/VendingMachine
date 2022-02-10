@@ -4,13 +4,28 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
+<<<<<<< HEAD
     <list default="true" id="f3ca3329-694b-44f1-a0ce-ab017617e3b8" name="Changes" comment="" />
+=======
+    <list default="true" id="e7ac6702-dc4d-49a6-a861-01d8154cf16a" name="Changes" comment="" />
+>>>>>>> adce4fb6fbd472eabdda578b116e443b0f4b42ab
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+<<<<<<< HEAD
   <component name="ProjectId" id="24viEglO9SKfix93lm7wSj0BvdT" />
+=======
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="ProjectId" id="24vgpsZGmEdTe8epxDsgQMGJ21P" />
+>>>>>>> adce4fb6fbd472eabdda578b116e443b0f4b42ab
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -18,7 +33,11 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+<<<<<<< HEAD
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+=======
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../ziye-liu-student-code/module-1/17_File_IO_Writing/lecture" />
+>>>>>>> adce4fb6fbd472eabdda578b116e443b0f4b42ab
   </component>
   <component name="RunManager">
     <configuration name="VendingMachineCLI" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
@@ -43,11 +62,19 @@
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
+<<<<<<< HEAD
       <changelist id="f3ca3329-694b-44f1-a0ce-ab017617e3b8" name="Changes" comment="" />
       <created>1644517351343</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1644517351343</updated>
+=======
+      <changelist id="e7ac6702-dc4d-49a6-a861-01d8154cf16a" name="Changes" comment="" />
+      <created>1644516660769</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1644516660769</updated>
+>>>>>>> adce4fb6fbd472eabdda578b116e443b0f4b42ab
     </task>
     <servers />
   </component>
