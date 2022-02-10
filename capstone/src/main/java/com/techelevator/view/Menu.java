@@ -10,10 +10,12 @@ public class Menu {
 	private PrintWriter out;
 	private Scanner in;
 
+	// constructor
 	public Menu(InputStream input, OutputStream output) {
 		this.out = new PrintWriter(output);
 		this.in = new Scanner(input);
 	}
+
 
 	public Object getChoiceFromOptions(Object[] options) {
 		Object choice = null;
@@ -24,6 +26,7 @@ public class Menu {
 		return choice;
 	}
 
+// getter
 	private Object getChoiceFromUserInput(Object[] options) {
 		Object choice = null;
 		String userInput = in.nextLine();
@@ -40,7 +43,7 @@ public class Menu {
 		}
 		return choice;
 	}
-
+// method
 	private void displayMenuOptions(Object[] options) {
 		out.println();
 		for (int i = 0; i < options.length; i++) {
