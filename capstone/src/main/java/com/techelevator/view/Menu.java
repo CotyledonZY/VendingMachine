@@ -26,6 +26,8 @@ public class Menu {
 		return choice;
 	}
 
+	// CODE HERE - need another getChoiceFromPurchaseMenuOptions
+
 // getter
 	private Object getChoiceFromUserInput(Object[] options) {
 		Object choice = null;
@@ -53,4 +55,8 @@ public class Menu {
 		out.print(System.lineSeparator() + "Please choose an option >>> ");
 		out.flush();
 	}
+
+	// CODE HERE - need another displayPurchaseMenuOptions, with current money provided
+
+
 }
