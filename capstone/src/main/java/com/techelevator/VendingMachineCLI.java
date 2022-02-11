@@ -7,6 +7,7 @@ import com.techelevator.view.Menu;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.math.BigDecimal;
 import java.util.Scanner;
 
 public class VendingMachineCLI {
@@ -35,20 +36,23 @@ public class VendingMachineCLI {
 
 			if (choice.equals(MAIN_MENU_OPTION_DISPLAY_ITEMS)) {
 				// display vending machine items
+				inventory.readFile();
 				inventory.displayItems();
 
 			} else if (choice.equals(MAIN_MENU_OPTION_PURCHASE)) {
 				Customer customer = new Customer();
+				Scanner userInput = new Scanner(System.in);
 				while (true) {
 					String purchaseChoice = (String) menu.getChoiceFromPurchaseMenuOptions(PURCHASE_MENU_OPTIONS, customer);
 					if (purchaseChoice.equals(PURCHASE_MENU_OPTIONS_FEED_MONEY)) {
 						System.out.println("Please deposit money in whole dollar amounts");
-						Scanner userInput = new Scanner(System.in);
+						/*Scanner userInput = new Scanner(System.in);*/
 						double amountToDeposit = Double.parseDouble(userInput.nextLine());
 						customer.feedMoney(amountToDeposit);
 						// Do we need to have a userInput.close() ??
 					} else if (purchaseChoice.equals(PURCHASE_MENU_OPTIONS_SELECT_PRODUCT)) {
-
+						//Select product method
+						customer.selectProduct(inventory, customer.getMoneyProvided(), userInput);
 					} else if (purchaseChoice.equals(PURCHASE_MENU_OPTIONS_FINISH_TRANSACTION)) {
 							//receive change, money provided to zero,
 						// return to main menu

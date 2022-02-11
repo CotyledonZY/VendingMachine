@@ -16,14 +16,14 @@ public class Inventory {
     }
 
     // method
-    public void displayItems() {
+    public Map<Integer, Product> readFile() {
         // load file
         String inventoryPath = "vendingmachine.csv";
-        File inventory = new File (inventoryPath);
+        File inventory = new File(inventoryPath);
 
         // parse lines
-        try(Scanner inventoryScanner = new Scanner(inventory)){
-            while (inventoryScanner.hasNextLine()){
+        try (Scanner inventoryScanner = new Scanner(inventory)) {
+            while (inventoryScanner.hasNextLine()) {
                 String nextLine = inventoryScanner.nextLine();
 
                 String[] productInfo = nextLine.split("\\|");
@@ -37,19 +37,27 @@ public class Inventory {
                 inventoryMap.put(i, product);
                 i++;
             }
-        }catch (Exception e){System.out.println("Error occurred");
+        } catch (Exception e) {
+            System.out.println("Error occurred");
         }
-
+        return inventoryMap;
+    }
+        
+        
         // Display items - loop through Map for listing all items
-            for(Map.Entry<Integer, Product> singleProduct: inventoryMap.entrySet()) {
-                if (singleProduct.getValue().getQuantity() == 0) {
-                    System.out.println("Product name: " + singleProduct.getValue().getName() + "SOLD OUT");
-                } else {
-                    System.out.println("Product name: " + singleProduct.getValue().getName() + ", Slot identifier: "
-                            + singleProduct.getValue().getSlotIdentifier() + ", Price: $" + singleProduct.getValue().getPrice()
-                            + ", Quantity remaining: " + singleProduct.getValue().getQuantity());
-                }
 
+    public void displayItems() {
+        readFile();
+
+        for(Map.Entry<Integer, Product> singleProduct: inventoryMap.entrySet()) {
+            if (singleProduct.getValue().getQuantity() == 0) {
+                System.out.println("Product name: " + singleProduct.getValue().getName() + "SOLD OUT");
+            } else {
+                System.out.println("Slot identifier: " + singleProduct.getValue().getSlotIdentifier() + " || " + singleProduct.getValue().getName()
+                        +", Price: $" + singleProduct.getValue().getPrice()
+                        + ", Quantity remaining: " + singleProduct.getValue().getQuantity());
             }
+
+        }
     }
 }

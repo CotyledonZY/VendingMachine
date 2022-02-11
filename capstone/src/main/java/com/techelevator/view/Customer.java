@@ -37,4 +37,14 @@ public class Customer {
         return moneyProvided;
     }
 
+    public void selectProduct (Inventory inventory, BigDecimal moneyProvided, Scanner userInput){
+        if (moneyProvided.equals(0.0)) {
+            System.out.println("Deposit money before making a selection");
+        } else {
+            inventory.displayItems();
+            System.out.println("Make a selection with slot identifier");
+            String slotIdentifierPicked = userInput.nextLine();
+
+        }
+    }
 }
