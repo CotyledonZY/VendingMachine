@@ -1,5 +1,7 @@
 package com.techelevator;
 
+import com.techelevator.view.CoinBank;
+import com.techelevator.view.Customer;
 import com.techelevator.view.Inventory;
 import com.techelevator.view.Menu;
 
@@ -14,10 +16,10 @@ public class VendingMachineCLI {
 	private static final String MAIN_MENU_OPTION_EXIT = "Exit";
 	private static final String[] MAIN_MENU_OPTIONS = { MAIN_MENU_OPTION_DISPLAY_ITEMS, MAIN_MENU_OPTION_PURCHASE, MAIN_MENU_OPTION_EXIT };
 
-	// create a String PURCHASE_MENU_OPTIONS_FEED_MONEY,
-	// PURCHASE_MENU_OPTIONS_SELECT PRODUCT,
-	// PURCHASE_MENU_OPTIONS_FINISH_TRANSACTION,
-	// String[] PURCHASE_MENU_OPTIONS
+	private static final String PURCHASE_MENU_OPTIONS_FEED_MONEY = "Feed Money";
+	private static final String PURCHASE_MENU_OPTIONS_SELECT_PRODUCT = "Select Product";
+	private static final String PURCHASE_MENU_OPTIONS_FINISH_TRANSACTION = "Finish Transaction";
+	private static final String[] PURCHASE_MENU_OPTIONS = {PURCHASE_MENU_OPTIONS_FEED_MONEY, PURCHASE_MENU_OPTIONS_SELECT_PRODUCT, PURCHASE_MENU_OPTIONS_FINISH_TRANSACTION};
 
 	private Menu menu;
 	// constructor
@@ -29,15 +31,30 @@ public class VendingMachineCLI {
 		while (true) {
 			String choice = (String) menu.getChoiceFromOptions(MAIN_MENU_OPTIONS);
 			Inventory inventory = new Inventory();
-			// CoinBank
+			CoinBank coinBank = new CoinBank();
 
 			if (choice.equals(MAIN_MENU_OPTION_DISPLAY_ITEMS)) {
 				// display vending machine items
 				inventory.displayItems();
 
 			} else if (choice.equals(MAIN_MENU_OPTION_PURCHASE)) {
-				// do purchase
-				// CODE HERE - create string choiceFromPurchaseMenu
+				Customer customer = new Customer();
+				while (true) {
+					String purchaseChoice = (String) menu.getChoiceFromPurchaseMenuOptions(PURCHASE_MENU_OPTIONS, customer);
+					if (purchaseChoice.equals(PURCHASE_MENU_OPTIONS_FEED_MONEY)) {
+						System.out.println("Please deposit money in whole dollar amounts");
+						Scanner userInput = new Scanner(System.in);
+						double amountToDeposit = Double.parseDouble(userInput.nextLine());
+						customer.feedMoney(amountToDeposit);
+						// Do we need to have a userInput.close() ??
+					} else if (purchaseChoice.equals(PURCHASE_MENU_OPTIONS_SELECT_PRODUCT)) {
+
+					} else if (purchaseChoice.equals(PURCHASE_MENU_OPTIONS_FINISH_TRANSACTION)) {
+							//receive change, money provided to zero,
+						// return to main menu
+						break;
+					}
+				}
 
 			} else if (choice.equals(MAIN_MENU_OPTION_EXIT)){
 				break;

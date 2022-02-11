@@ -26,6 +26,15 @@ public class Menu {
 		return choice;
 	}
 
+	public Object getChoiceFromPurchaseMenuOptions(Object[] options, Customer customer) {
+		Object choice = null;
+		while (choice == null) {
+			purchaseMenuOptions(options, customer);
+			choice = getChoiceFromUserInput(options);
+		}
+		return choice;
+	}
+
 	// CODE HERE - need another getChoiceFromPurchaseMenuOptions
 
 // getter
@@ -56,7 +65,16 @@ public class Menu {
 		out.flush();
 	}
 
-	// CODE HERE - need another displayPurchaseMenuOptions, with current money provided
+	private void purchaseMenuOptions(Object[] options, Customer customer) {
+		out.println();
+		for (int i = 0; i < options.length; i++) {
+			int optionNum = i + 1;
+			out.println(optionNum + ") " + options[i]);
+		}
+		out.print(System.lineSeparator()+ "Current Money Provided: " + "$" + customer.getMoneyProvided());
+		out.print(System.lineSeparator() + "Please choose an option >>> ");
+		out.flush();
+	}
 
 
 }

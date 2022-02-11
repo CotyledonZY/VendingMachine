@@ -41,17 +41,15 @@ public class Inventory {
         }
 
         // Display items - loop through Map for listing all items
-            for(Map.Entry<Integer, Product> singleProduct: inventoryMap.entrySet()){
-                // CODE HERE - if item available
-
-                System.out.println("Product name: " + singleProduct.getValue().getName() + ", Slot identifier: "
-                        + singleProduct.getValue().getSlotIdentifier() + ", Price: $" + singleProduct.getValue().getPrice()
-                        + ", Quantity remaining: " + singleProduct.getValue().getQuantity());
-                // CODE HERE - if item sold out, print product "name and sold out"
-
+            for(Map.Entry<Integer, Product> singleProduct: inventoryMap.entrySet()) {
+                if (singleProduct.getValue().getQuantity() == 0) {
+                    System.out.println("Product name: " + singleProduct.getValue().getName() + "SOLD OUT");
+                } else {
+                    System.out.println("Product name: " + singleProduct.getValue().getName() + ", Slot identifier: "
+                            + singleProduct.getValue().getSlotIdentifier() + ", Price: $" + singleProduct.getValue().getPrice()
+                            + ", Quantity remaining: " + singleProduct.getValue().getQuantity());
+                }
 
             }
-
-
     }
 }
