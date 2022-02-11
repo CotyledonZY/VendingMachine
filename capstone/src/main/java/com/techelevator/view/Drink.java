@@ -6,5 +6,10 @@ public class Drink extends Product {
         super();
     }
     // method override
+    @Override
+    public void printMessage(Customer customer){
+        super.printMessage(customer);
+        System.out.println("Glug, Glug, Yum!");
+    }
 
 }

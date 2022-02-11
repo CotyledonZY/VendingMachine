@@ -28,11 +28,13 @@ public class Customer {
         } else {
             System.out.println("****Amount entered is not a whole dollar amount****");
         }
-
         return moneyProvided;
     }
 
     public BigDecimal changeReturned (double amountToSpend){
+        if (amountToSpend > moneyProvided.doubleValue()){
+
+        }
         moneyProvided = moneyProvided.subtract(BigDecimal.valueOf(amountToSpend));
         return moneyProvided;
     }
@@ -44,6 +46,20 @@ public class Customer {
             inventory.displayItems();
             System.out.println("Make a selection with slot identifier");
             String slotIdentifierPicked = userInput.nextLine();
+            for (int i = 1; i <= inventory.readFile().size(); i++){
+                if (slotIdentifierPicked.equals(inventory.readFile().get(i))) {
+                    //item sold out or available?
+                    if (inventory.readFile().get(i).getQuantity() == 0){
+                        System.out.println(inventory.readFile().get(i).getName() + " is Sold Out :(");
+                    } else {
+                        System.out.println();
+                    }
+
+                } else {
+                    System.out.println("**** Slot identifier does not exist - Please enter a valid slot identifier ****");
+                }
+            }
+
 
         }
     }

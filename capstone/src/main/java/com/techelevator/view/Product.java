@@ -54,8 +54,10 @@ public class Product {
     public Product() {
     }
 
-    // need a sound method???? so to be overridden in subclass
-    public void soundMessage(){
+    public void printMessage(Customer customer){
+        //dispense item name, cost, getMoneyProvided + subclass Message
+        customer.changeReturned(getPrice());
+        System.out.println("Here is your " + getName() + ". It cost " + getPrice() + ". You have " + customer.getMoneyProvided());
 
     }
 

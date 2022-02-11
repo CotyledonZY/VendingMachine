@@ -6,4 +6,9 @@ public class Chip extends Product {
         super();
     }
     // method override
+    @Override
+    public void printMessage(Customer customer){
+        super.printMessage(customer);
+        System.out.println("Crunch, Crunch, Yum!");
+    }
 }
