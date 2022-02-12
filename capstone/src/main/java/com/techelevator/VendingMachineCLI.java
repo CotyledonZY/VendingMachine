@@ -41,19 +41,23 @@ public class VendingMachineCLI {
 			} else if (choice.equals(MAIN_MENU_OPTION_PURCHASE)) {
 				Customer customer = new Customer();
 				Scanner userInput = new Scanner(System.in);
+				Product product = new Product();
 				while (true) {
 					String purchaseChoice = (String) menu.getChoiceFromPurchaseMenuOptions(PURCHASE_MENU_OPTIONS, customer);
 					if (purchaseChoice.equals(PURCHASE_MENU_OPTIONS_FEED_MONEY)) {
-						System.out.println("Please deposit money in whole dollar amounts");
+						System.out.println("Please deposit money in whole dollar amounts: ");
 						/*Scanner userInput = new Scanner(System.in);*/
 						double amountToDeposit = Double.parseDouble(userInput.nextLine());
 						customer.feedMoney(amountToDeposit);
 						// Do we need to have a userInput.close() ??
 					} else if (purchaseChoice.equals(PURCHASE_MENU_OPTIONS_SELECT_PRODUCT)) {
 						//Select product method
-						customer.selectProduct(inventoryMap, customer.getMoneyProvided(), userInput,customer);
+						product = customer.selectProduct(inventoryMap, customer.getMoneyProvided(), userInput,customer);
+
 					} else if (purchaseChoice.equals(PURCHASE_MENU_OPTIONS_FINISH_TRANSACTION)) {
-							//receive change, money provided to zero,
+							//receive change, money provided to zero, update coinbank balance
+						customer.finishTransaction(product,customer,coinBank);
+
 						// return to main menu
 						break;
 					}

@@ -1,6 +1,7 @@
 package com.techelevator.view;
 
 import java.io.File;
+import java.math.BigDecimal;
 import java.util.Scanner;
 import java.util.Map;
 import java.util.HashMap;
@@ -31,7 +32,7 @@ public class Inventory {
                 // add to Product
                 product.setSlotIdentifier(productInfo[0]);
                 product.setName(productInfo[1]);
-                product.setPrice(Double.valueOf(productInfo[2]));
+                product.setPrice(BigDecimal.valueOf(Double.parseDouble(productInfo[2])));
                 product.setType(productInfo[3]);
                 // add to map
                 inventoryMap.put(i, product);

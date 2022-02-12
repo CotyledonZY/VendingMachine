@@ -32,17 +32,18 @@ public class Customer {
         return moneyProvided;
     }
 
-    public BigDecimal changeReturned (double amountToSpend){
-        if (amountToSpend > moneyProvided.doubleValue()){
+    public BigDecimal changeReturned (BigDecimal amountToSpend){
+        if (amountToSpend.compareTo(moneyProvided)==1){
             System.out.println("Not enough money provided, please enter more money");
         }else{
-            moneyProvided = moneyProvided.subtract(BigDecimal.valueOf(amountToSpend));
+            moneyProvided = moneyProvided.subtract(amountToSpend);
         }
         return moneyProvided;
     }
 
-    public void selectProduct (Map<Integer, Product> inventoryMap, BigDecimal moneyProvided, Scanner userInput,Customer customer){
+    public Product selectProduct (Map<Integer, Product> inventoryMap, BigDecimal moneyProvided, Scanner userInput,Customer customer){
         // list available products
+        Product product = new Product();
         if (moneyProvided.equals(BigDecimal.ZERO)) {
             System.out.println("Deposit money before making a selection");
         } else {
@@ -50,14 +51,15 @@ public class Customer {
             for(Map.Entry<Integer, Product> singleProduct: inventoryMap.entrySet()) {
                 // only print products available
                 if (singleProduct.getValue().getQuantity()>0) {
-                    System.out.println("Slot identifier: " + singleProduct.getValue().getSlotIdentifier() + " || " + singleProduct.getValue().getName()
+                    System.out.println("Slot identifier: " + singleProduct.getValue().getSlotIdentifier() + " || "
+                            + singleProduct.getValue().getName()
                             +", Price: $" + singleProduct.getValue().getPrice()
                             + ", Quantity remaining: " + singleProduct.getValue().getQuantity());
                 }
             }
 
             // compare userinput with slotID
-            System.out.println("Make a selection with slot identifier");
+            System.out.println("Make a selection with slot identifier: ");
             String slotIdentifierPicked = userInput.nextLine();
 
             boolean matchFound = false;
@@ -69,26 +71,28 @@ public class Customer {
                     if (inventoryMap.get(i).getQuantity() == 0){
                         System.out.println(inventoryMap.get(i).getName() + " is Sold Out :(");
                     } else {
+//                        Product product = new Product();
                         // product available, - dispense , printMessage
                         if (inventoryMap.get(i).getType().equals("Drink")){
-                            Product product = new Drink();
+                            product = new Drink();
                             setupProduct(inventoryMap, customer, i, product);
 
                         }else if (inventoryMap.get(i).getType().equals("Chip")){
-                            Product product = new Chip();
+                            product = new Chip();
                             setupProduct(inventoryMap, customer, i, product);
 
                         }else if (inventoryMap.get(i).getType().equals("Candy")){
-                            Product product = new Candy();
+                            product = new Candy();
                             setupProduct(inventoryMap, customer, i, product);
 
                         }else if (inventoryMap.get(i).getType().equals("Gum")){
-                            Product product = new Gum();
+                            product = new Gum();
                             setupProduct(inventoryMap, customer, i, product);
                         }
 
-                        // update coinbank balance, quantity of item,
-
+                        // update  quantity of item,
+//                        product.setQuantity(product.getQuantity()-1);
+                        inventoryMap.get(i).setQuantity(product.getQuantity()-1);
                     }
                     matchFound = true;
                 }
@@ -98,6 +102,7 @@ public class Customer {
                  System.out.println("**** Slot identifier does not exist - Please enter a valid slot identifier ****");
             }
         }
+        return product;
     }
 
     private void setupProduct(Map<Integer, Product> inventoryMap, Customer customer, int i, Product product) {
@@ -107,5 +112,25 @@ public class Customer {
         product.setSlotIdentifier(inventoryMap.get(i).getSlotIdentifier());
         product.setQuantity(inventoryMap.get(i).getQuantity());
         product.printMessage(customer);
+    }
+
+    // hit finish transaction - got a message money returned, moneyProvided =0,
+    public void finishTransaction(Product product, Customer customer, CoinBank coinBank){
+
+        BigDecimal amountToReturn = customer.getMoneyProvided();
+        BigDecimal amountToSpend = product.getPrice();
+        coinBank.addToCoinBank(amountToSpend);
+//        coinBank.setBalance(coinBank.getBalance().add(product.getPrice()));
+        if (amountToReturn == BigDecimal.valueOf(0)){
+            System.out.println("Thank you for your business! :)");
+        }else{
+            // John - change made here!!!!
+            System.out.println("Here is your change: " + amountToReturn);
+            coinBank.subtractFromCoinBank(amountToReturn);
+        }
+        customer.setMoneyProvided(BigDecimal.valueOf(0));
+
+
+
     }
 }
