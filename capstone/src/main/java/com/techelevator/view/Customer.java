@@ -1,6 +1,7 @@
 package com.techelevator.view;
 
 import java.math.BigDecimal;
+import java.util.Map;
 import java.util.Scanner;
 
 public class Customer {
@@ -33,34 +34,75 @@ public class Customer {
 
     public BigDecimal changeReturned (double amountToSpend){
         if (amountToSpend > moneyProvided.doubleValue()){
-
+            System.out.println("Not enough money provided, please enter more money");
+        }else{
+            moneyProvided = moneyProvided.subtract(BigDecimal.valueOf(amountToSpend));
         }
-        moneyProvided = moneyProvided.subtract(BigDecimal.valueOf(amountToSpend));
         return moneyProvided;
     }
 
-    public void selectProduct (Inventory inventory, BigDecimal moneyProvided, Scanner userInput){
-        if (moneyProvided.equals(0.0)) {
+    public void selectProduct (Map<Integer, Product> inventoryMap, BigDecimal moneyProvided, Scanner userInput,Customer customer){
+        // list available products
+        if (moneyProvided.equals(BigDecimal.ZERO)) {
             System.out.println("Deposit money before making a selection");
         } else {
-            inventory.displayItems();
-            System.out.println("Make a selection with slot identifier");
-            String slotIdentifierPicked = userInput.nextLine();
-            for (int i = 1; i <= inventory.readFile().size(); i++){
-                if (slotIdentifierPicked.equals(inventory.readFile().get(i))) {
-                    //item sold out or available?
-                    if (inventory.readFile().get(i).getQuantity() == 0){
-                        System.out.println(inventory.readFile().get(i).getName() + " is Sold Out :(");
-                    } else {
-                        System.out.println();
-                    }
-
-                } else {
-                    System.out.println("**** Slot identifier does not exist - Please enter a valid slot identifier ****");
+            // loop through the map
+            for(Map.Entry<Integer, Product> singleProduct: inventoryMap.entrySet()) {
+                // only print products available
+                if (singleProduct.getValue().getQuantity()>0) {
+                    System.out.println("Slot identifier: " + singleProduct.getValue().getSlotIdentifier() + " || " + singleProduct.getValue().getName()
+                            +", Price: $" + singleProduct.getValue().getPrice()
+                            + ", Quantity remaining: " + singleProduct.getValue().getQuantity());
                 }
             }
 
+            // compare userinput with slotID
+            System.out.println("Make a selection with slot identifier");
+            String slotIdentifierPicked = userInput.nextLine();
+
+            for (int i = 1; i <= inventoryMap.size(); i++){
+                // if valid, then dispense; if not, throw error
+                if (slotIdentifierPicked.equals(inventoryMap.get(i).getSlotIdentifier())) {
+                    //item sold out
+                    if (inventoryMap.get(i).getQuantity() == 0){
+                        System.out.println(inventoryMap.get(i).getName() + " is Sold Out :(");
+                    } else {
+                        // product available, - dispense , printMessage
+                        if (inventoryMap.get(i).getType().equals("Drink")){
+                            Product product = new Drink();
+                            setupProduct(inventoryMap, customer, i, product);
+
+                        }else if (inventoryMap.get(i).getType().equals("Chip")){
+                            Product product = new Chip();
+                            setupProduct(inventoryMap, customer, i, product);
+
+                        }else if (inventoryMap.get(i).getType().equals("Candy")){
+                            Product product = new Candy();
+                            setupProduct(inventoryMap, customer, i, product);
+
+                        }else if (inventoryMap.get(i).getType().equals("Gum")){
+                            Product product = new Gum();
+                            setupProduct(inventoryMap, customer, i, product);
+                        }
+
+                        // update coinbank balance, quantity of item, 
+
+                    }
+                }
+            }
+
+            // ******************** CODE LATER!!! what if customer enter invalid code *************************
+//            System.out.println("**** Slot identifier does not exist - Please enter a valid slot identifier ****");
 
         }
+    }
+
+    private void setupProduct(Map<Integer, Product> inventoryMap, Customer customer, int i, Product product) {
+        product.setName(inventoryMap.get(i).getName());
+        product.setType(inventoryMap.get(i).getType());
+        product.setPrice(inventoryMap.get(i).getPrice());
+        product.setSlotIdentifier(inventoryMap.get(i).getSlotIdentifier());
+        product.setQuantity(inventoryMap.get(i).getQuantity());
+        product.printMessage(customer);
     }
 }

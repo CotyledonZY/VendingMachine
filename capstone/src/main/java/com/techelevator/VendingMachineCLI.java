@@ -1,13 +1,11 @@
 package com.techelevator;
 
-import com.techelevator.view.CoinBank;
-import com.techelevator.view.Customer;
-import com.techelevator.view.Inventory;
-import com.techelevator.view.Menu;
+import com.techelevator.view.*;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.math.BigDecimal;
+import java.util.Map;
 import java.util.Scanner;
 
 public class VendingMachineCLI {
@@ -33,11 +31,12 @@ public class VendingMachineCLI {
 			String choice = (String) menu.getChoiceFromOptions(MAIN_MENU_OPTIONS);
 			Inventory inventory = new Inventory();
 			CoinBank coinBank = new CoinBank();
+			Map<Integer, Product> inventoryMap = inventory.readFile();
 
 			if (choice.equals(MAIN_MENU_OPTION_DISPLAY_ITEMS)) {
 				// display vending machine items
-				inventory.readFile();
-				inventory.displayItems();
+//				Map<Integer, Product> inventoryMap = inventory.readFile();
+				inventory.displayItems(inventoryMap);
 
 			} else if (choice.equals(MAIN_MENU_OPTION_PURCHASE)) {
 				Customer customer = new Customer();
@@ -52,7 +51,7 @@ public class VendingMachineCLI {
 						// Do we need to have a userInput.close() ??
 					} else if (purchaseChoice.equals(PURCHASE_MENU_OPTIONS_SELECT_PRODUCT)) {
 						//Select product method
-						customer.selectProduct(inventory, customer.getMoneyProvided(), userInput);
+						customer.selectProduct(inventoryMap, customer.getMoneyProvided(), userInput,customer);
 					} else if (purchaseChoice.equals(PURCHASE_MENU_OPTIONS_FINISH_TRANSACTION)) {
 							//receive change, money provided to zero,
 						// return to main menu

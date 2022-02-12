@@ -46,8 +46,8 @@ public class Inventory {
         
         // Display items - loop through Map for listing all items
 
-    public void displayItems() {
-        readFile();
+    public void displayItems(Map<Integer, Product> inventoryMap) {
+        this.inventoryMap = inventoryMap;
 
         for(Map.Entry<Integer, Product> singleProduct: inventoryMap.entrySet()) {
             if (singleProduct.getValue().getQuantity() == 0) {
