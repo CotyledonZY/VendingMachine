@@ -60,8 +60,10 @@ public class Customer {
             System.out.println("Make a selection with slot identifier");
             String slotIdentifierPicked = userInput.nextLine();
 
+            boolean matchFound = false;
+
             for (int i = 1; i <= inventoryMap.size(); i++){
-                // if valid, then dispense; if not, throw error
+                // if valid, then dispense;
                 if (slotIdentifierPicked.equals(inventoryMap.get(i).getSlotIdentifier())) {
                     //item sold out
                     if (inventoryMap.get(i).getQuantity() == 0){
@@ -85,15 +87,16 @@ public class Customer {
                             setupProduct(inventoryMap, customer, i, product);
                         }
 
-                        // update coinbank balance, quantity of item, 
+                        // update coinbank balance, quantity of item,
 
                     }
+                    matchFound = true;
                 }
             }
-
-            // ******************** CODE LATER!!! what if customer enter invalid code *************************
-//            System.out.println("**** Slot identifier does not exist - Please enter a valid slot identifier ****");
-
+            // if customer enter invalid code
+            if (!matchFound){
+                 System.out.println("**** Slot identifier does not exist - Please enter a valid slot identifier ****");
+            }
         }
     }
 
