@@ -4,9 +4,16 @@ import com.techelevator.view.*;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.PrintWriter;
 import java.math.BigDecimal;
+import java.text.DateFormat;
 import java.util.Map;
 import java.util.Scanner;
+import java.util.Date;
+import java.text.SimpleDateFormat;
+
+
 
 public class VendingMachineCLI {
 
@@ -28,10 +35,18 @@ public class VendingMachineCLI {
 
 	public void run() {
 		while (true) {
+			// set date format
+			DateFormat time = new SimpleDateFormat("MM/dd/yyyy hh:mm:ss aa");
+			String dateString = time.format(new Date()).toString();
+
 			String choice = (String) menu.getChoiceFromOptions(MAIN_MENU_OPTIONS);
 			Inventory inventory = new Inventory();
 			CoinBank coinBank = new CoinBank();
 			Map<Integer, Product> inventoryMap = inventory.readFile();
+			String filePath = "Log.txt";
+
+			File logFile = new File(filePath);
+			double amountToDeposit = 0;
 
 			if (choice.equals(MAIN_MENU_OPTION_DISPLAY_ITEMS)) {
 				// display vending machine items
@@ -47,7 +62,7 @@ public class VendingMachineCLI {
 					if (purchaseChoice.equals(PURCHASE_MENU_OPTIONS_FEED_MONEY)) {
 						System.out.println("Please deposit money in whole dollar amounts: ");
 						/*Scanner userInput = new Scanner(System.in);*/
-						double amountToDeposit = Double.parseDouble(userInput.nextLine());
+						amountToDeposit = Double.parseDouble(userInput.nextLine());
 						customer.feedMoney(amountToDeposit);
 						// Do we need to have a userInput.close() ??
 					} else if (purchaseChoice.equals(PURCHASE_MENU_OPTIONS_SELECT_PRODUCT)) {
@@ -57,6 +72,7 @@ public class VendingMachineCLI {
 					} else if (purchaseChoice.equals(PURCHASE_MENU_OPTIONS_FINISH_TRANSACTION)) {
 							//receive change, money provided to zero, update coinbank balance
 						customer.finishTransaction(product,customer,coinBank);
+						writeDataToFile(logFile,customer,amountToDeposit,product, dateString);
 
 						// return to main menu
 						break;
@@ -70,7 +86,22 @@ public class VendingMachineCLI {
 	}
 
 
+	// create method for audit
+	public void writeDataToFile(File logFile, Customer customer, double amountToDeposit, Product product, String dateString){
 
+		try(PrintWriter writer = new PrintWriter(new FileOutputStream(logFile, true))){
+			writer.println(dateString + " FEED MONEY: $" + amountToDeposit + " $"+ customer.getMoneyProvided());
+			writer.println(dateString + " " + product.getName() + " "
+					+ product.getSlotIdentifier() + " $" + product.getPrice() + " $" + customer.getMoneyProvided());
+			BigDecimal totalAmountToReturn = new BigDecimal(0.00);
+			totalAmountToReturn.equals(customer.getMoneyProvided());
+			writer.println(dateString + " GIVE CHANGE: $" + totalAmountToReturn+ " $"
+					+ customer.getMoneyProvided());
+
+		}catch (Exception e){
+			System.out.println(e.getMessage());
+		}
+	}
 
 	public static void main(String[] args) throws FileNotFoundException {
 		Menu menu = new Menu(System.in, System.out);

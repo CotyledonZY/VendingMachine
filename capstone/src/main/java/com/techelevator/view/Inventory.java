@@ -1,6 +1,8 @@
 package com.techelevator.view;
 
 import java.io.File;
+import java.io.FileOutputStream;
+import java.io.PrintWriter;
 import java.math.BigDecimal;
 import java.util.Scanner;
 import java.util.Map;
@@ -61,4 +63,6 @@ public class Inventory {
 
         }
     }
+
+
 }
