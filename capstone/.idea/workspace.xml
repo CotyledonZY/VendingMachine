@@ -66,6 +66,15 @@
           <option name="timeStamp" value="2" />
         </breakpoint>
 
+        <line-breakpoint enabled="true" type="java-method">
+          <url>file://$PROJECT_DIR$/src/main/java/com/techelevator/view/Customer.java</url>
+          <line>48</line>
+          <properties class="com.techelevator.view.Customer" method="selectProduct">
+            <option name="EMULATED" value="true" />
+          </properties>
+          <option name="timeStamp" value="4" />
+        </line-breakpoint>
+
       </breakpoints>
     </breakpoint-manager>
   </component>
