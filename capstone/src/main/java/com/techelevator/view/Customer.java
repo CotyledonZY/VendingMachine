@@ -122,7 +122,7 @@ public class Customer {
     }
 
     // hit finish transaction - got a message money returned, moneyProvided =0,
-    public void finishTransaction(Product product, Customer customer, CoinBank coinBank, Map<String, Product> inventoryMap){
+    public void finishTransaction(Product product, Customer customer, CoinBank coinBank){
         BigDecimal amountToReturn = customer.getMoneyProvided();
         BigDecimal amountToSpend = product.getPrice();
         // if customer feed money but didn't buy anything,and hit finish transaction
