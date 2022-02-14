@@ -58,7 +58,8 @@ public class CoinBank {
             nickelsAmount = (remainderFromDimes.divide(nickels,0, RoundingMode.DOWN));
             System.out.println( dimesAmount + " dimes, " + nickelsAmount + " nickels.");
         } else {
-            nickelsAmount = BigDecimal.valueOf(1);
+//            nickelsAmount = BigDecimal.valueOf(1);
+            nickelsAmount = (amountToReturnInCent.divide(nickels,0, RoundingMode.DOWN));
             System.out.println( nickelsAmount + " nickels.");
         }
 
