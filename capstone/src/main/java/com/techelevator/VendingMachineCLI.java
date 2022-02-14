@@ -8,9 +8,7 @@ import java.io.FileOutputStream;
 import java.io.PrintWriter;
 import java.math.BigDecimal;
 import java.text.DateFormat;
-import java.util.Map;
-import java.util.Scanner;
-import java.util.Date;
+import java.util.*;
 import java.text.SimpleDateFormat;
 
 
@@ -46,6 +44,8 @@ public class VendingMachineCLI {
 			String filePath = "Log.txt";
 
 			File logFile = new File(filePath);
+
+
 			double amountToDeposit = 0;
 
 			if (choice.equals(MAIN_MENU_OPTION_DISPLAY_ITEMS)) {
@@ -72,7 +72,8 @@ public class VendingMachineCLI {
 					} else if (purchaseChoice.equals(PURCHASE_MENU_OPTIONS_FINISH_TRANSACTION)) {
 							//receive change, money provided to zero, update coinbank balance
 						customer.finishTransaction(product,customer,coinBank);
-						writeDataToFile(logFile,customer,amountToDeposit,product, dateString);
+						writeDataToFile(logFile, customer);
+
 
 						// return to main menu
 						break;
@@ -87,21 +88,33 @@ public class VendingMachineCLI {
 
 
 	// create method for audit
-	public void writeDataToFile(File logFile, Customer customer, double amountToDeposit, Product product, String dateString){
-
+	public void writeDataToFile(File logFile, Customer customer){
 		try(PrintWriter writer = new PrintWriter(new FileOutputStream(logFile, true))){
-			writer.println(dateString + " FEED MONEY: $" + amountToDeposit + " $"+ customer.getMoneyProvided());
-			writer.println(dateString + " " + product.getName() + " "
-					+ product.getSlotIdentifier() + " $" + product.getPrice() + " $" + customer.getMoneyProvided());
-			BigDecimal totalAmountToReturn = new BigDecimal(0.00);
-			totalAmountToReturn.equals(customer.getMoneyProvided());
-			writer.println(dateString + " GIVE CHANGE: $" + totalAmountToReturn+ " $"
-					+ customer.getMoneyProvided());
+			for (AuditLog log : customer.auditLogs){
+				writer.println(log.printInLog());
+			}
 
 		}catch (Exception e){
 			System.out.println(e.getMessage());
 		}
 	}
+
+//		try(PrintWriter writer = new PrintWriter(new FileOutputStream(logFile, true))){
+////			writer.println(dateString + " FEED MONEY: $" + amountToDeposit + " $"+ customer.getMoneyProvided());
+////			writer.println(dateString + " " + product.getName() + " "
+////					+ product.getSlotIdentifier() + " $" + product.getPrice() + " $" + customer.getMoneyProvided());
+////			BigDecimal totalAmountToReturn = new BigDecimal(0.00);
+////			totalAmountToReturn.equals(customer.getMoneyProvided());
+////			writer.println(dateString + " GIVE CHANGE: $" + totalAmountToReturn+ " $"
+////					+ customer.getMoneyProvided());
+//			for (AuditLog auditMessage: auditLogs){
+//				writer.println(auditMessage);
+//			}
+//
+//		}catch (Exception e){
+//			System.out.println(e.getMessage());
+//		}
+//	}
 
 	public static void main(String[] args) throws FileNotFoundException {
 		Menu menu = new Menu(System.in, System.out);

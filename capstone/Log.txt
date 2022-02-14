@@ -9,3 +9,21 @@
 02/12/2022 11:38:35 PM FEED MONEY: $10.0 $0
 02/12/2022 11:38:35 PM Chiclets D3 $0.75 $0
 02/12/2022 11:38:35 PM GIVE CHANGE: $0 $0
+02/13/2022 02:34:58 PM FEED MONEY: $4.0 $0
+02/13/2022 02:34:58 PM Triplemint D4 $0.75 $0
+02/13/2022 02:34:58 PM GIVE CHANGE: $0 $0
+com.techelevator.view.AuditLog@2833cc44
+com.techelevator.view.AuditLog@33f88ab
+com.techelevator.view.AuditLog@27a8c74e
+com.techelevator.view.AuditLog@2d8f65a4
+com.techelevator.view.AuditLog@1b68ddbd
+com.techelevator.view.AuditLog@646d64ab
+02/13/2022 08:25:21 PM FEED MONEY: $6.0 $6.0
+02/13/2022 08:25:35 PM Cola C1 1.25 6.0
+02/13/2022 08:25:55 PM Cloud Popcorn A4 3.65 4.75
+02/13/2022 08:26:01 PM FEED MONEY: $1.0 $2.10
+02/13/2022 08:27:48 PM FEED MONEY: $3.0 $3.0
+02/13/2022 08:27:53 PM Potato Crisps A1 3.05 3.0
+02/13/2022 08:27:57 PM FEED MONEY: $2.0 $5.0
+02/13/2022 08:28:01 PM Potato Crisps A1 3.05 5.0
+02/13/2022 08:28:07 PM GIVE CHANGE: 1.95 0.00

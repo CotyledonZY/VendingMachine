@@ -2,12 +2,16 @@ package com.techelevator.view;
 
 import java.math.BigDecimal;
 import java.text.DateFormat;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 
 public class Customer {
     //How to display Current Money Provided formatted like "0.00"?? BigDecimal format?
     private BigDecimal moneyProvided = new BigDecimal(0.00);
+    // create a List to hold audit message
+    public List<AuditLog> auditLogs = new ArrayList<AuditLog>();
 
     public BigDecimal getMoneyProvided() {
         return moneyProvided;
@@ -28,6 +32,9 @@ public class Customer {
 
         if (amountToDeposit > 0 && amountToDeposit % 1 == 0){
             moneyProvided = moneyProvided.add(BigDecimal.valueOf(amountToDeposit));
+            // add auditLog message
+            auditLogs.add(new AuditLog("FEED MONEY: $" + amountToDeposit + " $"+ moneyProvided));
+
         } else {
             System.out.println("****Amount entered is not a whole dollar amount****");
         }
@@ -89,8 +96,8 @@ public class Customer {
                         }
 
                         // update  quantity of item,
-//                        product.setQuantity(product.getQuantity()-1);
                         inventoryMap.get(i).setQuantity(product.getQuantity()-1);
+                        auditLogs.add(new AuditLog(product.getName()+" "+product.getSlotIdentifier()+" "+ product.getPrice()+ " "+ moneyProvided));
                     }
                     matchFound = true;
                 }
@@ -121,10 +128,12 @@ public class Customer {
 //        coinBank.setBalance(coinBank.getBalance().add(product.getPrice()));
         if (amountToReturn == BigDecimal.valueOf(0)){
             System.out.println("Thank you for your business! :)");
+            auditLogs.add(new AuditLog("GIVE CHANGE: "+ moneyProvided + " 0.00"));
         }else {
 
             System.out.println("Here is your change: $" + amountToReturn);
             coinBank.subtractFromCoinBank(amountToReturn);
+            auditLogs.add(new AuditLog("GIVE CHANGE: "+ moneyProvided + " 0.00"));
         }
         customer.setMoneyProvided(BigDecimal.valueOf(0));
 
