@@ -35,8 +35,6 @@ public class Menu {
 		return choice;
 	}
 
-	// CODE HERE - need another getChoiceFromPurchaseMenuOptions
-
 // getter
 	private Object getChoiceFromUserInput(Object[] options) {
 		Object choice = null;

@@ -1,15 +1,14 @@
 package com.techelevator.view;
 
 import java.math.BigDecimal;
-import java.text.DateFormat;
+import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 
 public class Customer {
-    //How to display Current Money Provided formatted like "0.00"?? BigDecimal format?
-    private BigDecimal moneyProvided = new BigDecimal(0.00);
+    private BigDecimal moneyProvided = new BigDecimal(0.00).setScale(2, RoundingMode.UP);
     // create a List to hold audit message
     public List<AuditLog> auditLogs = new ArrayList<AuditLog>();
 
@@ -31,7 +30,7 @@ public class Customer {
     public BigDecimal feedMoney (double amountToDeposit){
 
         if (amountToDeposit > 0 && amountToDeposit % 1 == 0){
-            moneyProvided = moneyProvided.add(BigDecimal.valueOf(amountToDeposit));
+            moneyProvided = moneyProvided.add(BigDecimal.valueOf(amountToDeposit)).setScale(2, RoundingMode.UP);
             // add auditLog message
             auditLogs.add(new AuditLog("FEED MONEY: $" + amountToDeposit + " $"+ moneyProvided));
 
@@ -126,17 +125,6 @@ public class Customer {
     public void finishTransaction(Product product, Customer customer, CoinBank coinBank, Map<String, Product> inventoryMap){
         BigDecimal amountToReturn = customer.getMoneyProvided();
         BigDecimal amountToSpend = product.getPrice();
-        /*
-        update inventoryMap Start
-        */
-
-//        inventoryMap.get(slotID).setQuantity(product.getQuantity());
-
-        /*
-        update inventoryMap end
-        */
-
-        // ATTENTION CHANGED! - here needed a if/else statement,
         // if customer feed money but didn't buy anything,and hit finish transaction
         if (amountToSpend==null){
             System.out.println("Not interested in another item? Hope to see you next time!");

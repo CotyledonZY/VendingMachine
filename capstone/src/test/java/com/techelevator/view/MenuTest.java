@@ -59,6 +59,25 @@ public class MenuTest {
 		Assert.assertEquals(expected, output.toString());
 	}
 
+	//Test for purchaseMenuOptions
+
+	@Test
+	public void redisplays_purchaseMenu_if_user_does_not_choose_valid_option() {
+		Object[] options = new Object[] { "Larry", "Curly", "Moe" };
+		Customer customer = new Customer();
+		Menu menu = getMenuForTestingWithUserInput("4" + System.lineSeparator() + "1" + System.lineSeparator());
+
+		menu.getChoiceFromPurchaseMenuOptions(options, customer);
+
+		String menuDisplay = System.lineSeparator() + "1) " + options[0].toString() + System.lineSeparator() + "2) " + options[1].toString() + System.lineSeparator() + "3) "
+				+ options[2].toString() + System.lineSeparator() + System.lineSeparator() + "Current Money Provided: " + "$" + customer.getMoneyProvided() + System.lineSeparator() + "Please choose an option >>> ";
+
+		String expected = menuDisplay + System.lineSeparator() + "*** 4 is not a valid option ***" + System.lineSeparator() + System.lineSeparator() + menuDisplay;
+
+		Assert.assertEquals(expected, output.toString());
+	}
+
+
 	@Test
 	public void redisplays_menu_if_user_chooses_option_less_than_1() {
 		Object[] options = new Object[] { "Larry", "Curly", "Moe" };

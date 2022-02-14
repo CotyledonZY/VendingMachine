@@ -25,9 +25,9 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../john-picillo-student-code/module-1/14_Unit_Testing/exercise" />
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="JUnit.CustomerTest">
     <configuration name="VendingMachineCLI" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.techelevator.VendingMachineCLI" />
       <module name="m1-java-capstone-vending-machine" />
@@ -41,9 +41,41 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="CustomerTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="m1-java-capstone-vending-machine" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.techelevator.view.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.techelevator.view" />
+      <option name="MAIN_CLASS_NAME" value="com.techelevator.view.CustomerTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="MenuTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="m1-java-capstone-vending-machine" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.techelevator.view.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.techelevator.view" />
+      <option name="MAIN_CLASS_NAME" value="com.techelevator.view.MenuTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.CustomerTest" />
         <item itemvalue="Application.VendingMachineCLI" />
+        <item itemvalue="JUnit.MenuTest" />
       </list>
     </recent_temporary>
   </component>
@@ -65,15 +97,12 @@
           <properties class="java.lang.NullPointerException" package="java.lang" />
           <option name="timeStamp" value="2" />
         </breakpoint>
-        <line-breakpoint enabled="true" type="java-method">
-          <url>file://$PROJECT_DIR$/src/main/java/com/techelevator/view/Customer.java</url>
-          <line>48</line>
-          <properties class="com.techelevator.view.Customer" method="selectProduct">
-            <option name="EMULATED" value="true" />
-          </properties>
-          <option name="timeStamp" value="4" />
-        </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/capstone$MenuTest.ic" NAME="MenuTest Coverage Results" MODIFIED="1644863536021" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>com.techelevator.view.*</FILTER>
+    </SUITE>
   </component>
 </project>

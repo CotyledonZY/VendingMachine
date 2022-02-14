@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.PrintWriter;
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.*;
 
 
@@ -31,7 +32,7 @@ public class Inventory {
                 // add to Product
                 product.setSlotIdentifier(productInfo[0]);
                 product.setName(productInfo[1]);
-                product.setPrice(BigDecimal.valueOf(Double.parseDouble(productInfo[2])));
+                product.setPrice(BigDecimal.valueOf(Double.parseDouble(productInfo[2])).setScale(2, RoundingMode.UP));
                 product.setType(productInfo[3]);
                 // add to map
                 inventoryMap.put(product.getSlotIdentifier(), product);
