@@ -76,7 +76,7 @@ public class Customer {
                     if (inventoryMap.get(i).getQuantity() == 0){
                         System.out.println(inventoryMap.get(i).getName() + " is Sold Out :(");
                     } else {
-//                        Product product = new Product();
+
                         // product available, - dispense , printMessage
                         if (inventoryMap.get(i).getType().equals("Drink")){
                             product = new Drink();
@@ -97,7 +97,7 @@ public class Customer {
 
                         // update  quantity of item,
                         inventoryMap.get(i).setQuantity(product.getQuantity()-1);
-                        auditLogs.add(new AuditLog(product.getName()+" "+product.getSlotIdentifier()+" "+ product.getPrice()+ " "+ moneyProvided));
+                        auditLogs.add(new AuditLog(product.getName()+" "+product.getSlotIdentifier()+" $"+ product.getPrice()+ " $"+ customer.getMoneyProvided()));
                     }
                     matchFound = true;
                 }
@@ -121,23 +121,27 @@ public class Customer {
 
     // hit finish transaction - got a message money returned, moneyProvided =0,
     public void finishTransaction(Product product, Customer customer, CoinBank coinBank){
-
         BigDecimal amountToReturn = customer.getMoneyProvided();
         BigDecimal amountToSpend = product.getPrice();
-        coinBank.addToCoinBank(amountToSpend);
-//        coinBank.setBalance(coinBank.getBalance().add(product.getPrice()));
-        if (amountToReturn == BigDecimal.valueOf(0)){
-            System.out.println("Thank you for your business! :)");
-            auditLogs.add(new AuditLog("GIVE CHANGE: "+ moneyProvided + " 0.00"));
-        }else {
-
+        // ATTENTION CHANGED! - here needed a if/else statement,
+        // if customer feed money but didn't buy anything,and hit finish transaction
+        if (amountToSpend==null){
+            System.out.println("Not interested on any item? Hope to see you next time!");
             System.out.println("Here is your change: $" + amountToReturn);
             coinBank.subtractFromCoinBank(amountToReturn);
-            auditLogs.add(new AuditLog("GIVE CHANGE: "+ moneyProvided + " 0.00"));
+
+        }else {
+            coinBank.addToCoinBank(amountToSpend);
+
+            if (amountToReturn == BigDecimal.valueOf(0)) {
+                System.out.println("Thank you for your business! :)");
+            } else {
+                System.out.println("Here is your change: $" + amountToReturn);
+                coinBank.subtractFromCoinBank(amountToReturn);
+            }
+
         }
+        auditLogs.add(new AuditLog("GIVE CHANGE: $" + moneyProvided + " $0.00"));
         customer.setMoneyProvided(BigDecimal.valueOf(0));
-
-
-
     }
 }
