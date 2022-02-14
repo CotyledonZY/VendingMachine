@@ -1,6 +1,7 @@
 package com.techelevator.view;
 
 import java.math.BigDecimal;
+import java.text.DateFormat;
 import java.util.Map;
 import java.util.Scanner;
 
@@ -24,6 +25,7 @@ public class Customer {
     }
 
     public BigDecimal feedMoney (double amountToDeposit){
+
         if (amountToDeposit > 0 && amountToDeposit % 1 == 0){
             moneyProvided = moneyProvided.add(BigDecimal.valueOf(amountToDeposit));
         } else {
@@ -33,11 +35,7 @@ public class Customer {
     }
 
     public BigDecimal changeReturned (BigDecimal amountToSpend){
-        if (amountToSpend.compareTo(moneyProvided)==1){
-            System.out.println("Not enough money provided, please enter more money");
-        }else{
             moneyProvided = moneyProvided.subtract(amountToSpend);
-        }
         return moneyProvided;
     }
 
@@ -123,9 +121,9 @@ public class Customer {
 //        coinBank.setBalance(coinBank.getBalance().add(product.getPrice()));
         if (amountToReturn == BigDecimal.valueOf(0)){
             System.out.println("Thank you for your business! :)");
-        }else{
-            // John - change made here!!!!
-            System.out.println("Here is your change: " + amountToReturn);
+        }else {
+
+            System.out.println("Here is your change: $" + amountToReturn);
             coinBank.subtractFromCoinBank(amountToReturn);
         }
         customer.setMoneyProvided(BigDecimal.valueOf(0));
