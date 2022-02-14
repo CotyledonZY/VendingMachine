@@ -65,14 +65,7 @@
           <properties class="java.lang.NullPointerException" package="java.lang" />
           <option name="timeStamp" value="2" />
         </breakpoint>
-        <line-breakpoint enabled="true" type="java-method">
-          <url>file://$PROJECT_DIR$/src/main/java/com/techelevator/view/CoinBank.java</url>
-          <line>28</line>
-          <properties class="com.techelevator.view.CoinBank" method="subtractFromCoinBank">
-            <option name="EMULATED" value="true" />
-          </properties>
-          <option name="timeStamp" value="3" />
-        </line-breakpoint>
+
         <line-breakpoint enabled="true" type="java-method">
           <url>file://$PROJECT_DIR$/src/main/java/com/techelevator/view/Customer.java</url>
           <line>48</line>
@@ -81,6 +74,7 @@
           </properties>
           <option name="timeStamp" value="4" />
         </line-breakpoint>
+
       </breakpoints>
     </breakpoint-manager>
   </component>
