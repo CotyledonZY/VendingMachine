@@ -4,22 +4,19 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.PrintWriter;
 import java.math.BigDecimal;
-import java.util.Scanner;
-import java.util.Map;
-import java.util.HashMap;
+import java.util.*;
 
 
 public class Inventory {
     // instance variables
-    private Map<Integer, Product> inventoryMap = new HashMap<Integer, Product>();
-    private int i =1;
+    private Map<String, Product> inventoryMap = new TreeMap<String, Product>();
 
     // constructor
     public Inventory() {
     }
 
     // method
-    public Map<Integer, Product> readFile() {
+    public Map<String, Product> readFile() {
         // load file
         String inventoryPath = "vendingmachine.csv";
         File inventory = new File(inventoryPath);
@@ -37,8 +34,9 @@ public class Inventory {
                 product.setPrice(BigDecimal.valueOf(Double.parseDouble(productInfo[2])));
                 product.setType(productInfo[3]);
                 // add to map
-                inventoryMap.put(i, product);
-                i++;
+                inventoryMap.put(product.getSlotIdentifier(), product);
+
+
             }
         } catch (Exception e) {
             System.out.println("Error occurred");
@@ -49,10 +47,10 @@ public class Inventory {
         
         // Display items - loop through Map for listing all items
 
-    public void displayItems(Map<Integer, Product> inventoryMap) {
+    public void displayItems(Map<String, Product> inventoryMap) {
         this.inventoryMap = inventoryMap;
 
-        for(Map.Entry<Integer, Product> singleProduct: inventoryMap.entrySet()) {
+        for(Map.Entry<String, Product> singleProduct: inventoryMap.entrySet()) {
             if (singleProduct.getValue().getQuantity() == 0) {
                 System.out.println("Product name: " + singleProduct.getValue().getName() + "SOLD OUT");
             } else {

@@ -46,14 +46,14 @@ public class Customer {
         return moneyProvided;
     }
 
-    public Product selectProduct (Map<Integer, Product> inventoryMap, BigDecimal moneyProvided, Scanner userInput,Customer customer){
+    public Product selectProduct (Map<String, Product> inventoryMap, BigDecimal moneyProvided, Scanner userInput,Customer customer){
         // list available products
         Product product = new Product();
         if (moneyProvided.equals(BigDecimal.ZERO)) {
             System.out.println("Deposit money before making a selection");
         } else {
             // loop through the map
-            for(Map.Entry<Integer, Product> singleProduct: inventoryMap.entrySet()) {
+            for(Map.Entry<String, Product> singleProduct: inventoryMap.entrySet()) {
                 // only print products available
                 if (singleProduct.getValue().getQuantity()>0) {
                     System.out.println("Slot identifier: " + singleProduct.getValue().getSlotIdentifier() + " || "
@@ -68,36 +68,36 @@ public class Customer {
             String slotIdentifierPicked = userInput.nextLine();
 
             boolean matchFound = false;
-
-            for (int i = 1; i <= inventoryMap.size(); i++){
+            // loop thru keyset
+            for (String slotID: inventoryMap.keySet()){
                 // if valid, then dispense;
-                if (slotIdentifierPicked.equals(inventoryMap.get(i).getSlotIdentifier())) {
+                if (slotIdentifierPicked.equals(slotID)) {
                     //item sold out
-                    if (inventoryMap.get(i).getQuantity() == 0){
-                        System.out.println(inventoryMap.get(i).getName() + " are Sold Out :(");
+                    if (inventoryMap.get(slotID).getQuantity() == 0){
+                        System.out.println(inventoryMap.get(slotID).getName() + " are Sold Out :(");
                     } else {
 
                         // product available, - dispense , printMessage
-                        if (inventoryMap.get(i).getType().equals("Drink")){
+                        if (inventoryMap.get(slotID).getType().equals("Drink")){
                             product = new Drink();
-                            setupProduct(inventoryMap, customer, i, product);
+                            setupProduct(inventoryMap, customer, product,slotID);
 
-                        }else if (inventoryMap.get(i).getType().equals("Chip")){
+                        }else if (inventoryMap.get(slotID).getType().equals("Chip")){
                             product = new Chip();
-                            setupProduct(inventoryMap, customer, i, product);
+                            setupProduct(inventoryMap, customer, product,slotID);
 
-                        }else if (inventoryMap.get(i).getType().equals("Candy")){
+                        }else if (inventoryMap.get(slotID).getType().equals("Candy")){
                             product = new Candy();
-                            setupProduct(inventoryMap, customer, i, product);
+                            setupProduct(inventoryMap, customer, product,slotID);
 
-                        }else if (inventoryMap.get(i).getType().equals("Gum")){
+                        }else if (inventoryMap.get(slotID).getType().equals("Gum")){
                             product = new Gum();
-                            setupProduct(inventoryMap, customer, i, product);
+                            setupProduct(inventoryMap, customer,product,slotID);
                         }
 
                         // update  quantity of item,
-                        inventoryMap.get(i).setQuantity(product.getQuantity()-1);
                         if (product.getPrice().compareTo(moneyProvided)!=1 ){
+                            inventoryMap.get(slotID).setQuantity(product.getQuantity()-1);
                             auditLogs.add(new AuditLog(product.getName()+" "+product.getSlotIdentifier()
                                     +" $"+ product.getPrice()+ " $"+ customer.getMoneyProvided()));
                         }
@@ -113,25 +113,25 @@ public class Customer {
         return product;
     }
 
-    private void setupProduct(Map<Integer, Product> inventoryMap, Customer customer, int i, Product product) {
-        product.setName(inventoryMap.get(i).getName());
-        product.setType(inventoryMap.get(i).getType());
-        product.setPrice(inventoryMap.get(i).getPrice());
-        product.setSlotIdentifier(inventoryMap.get(i).getSlotIdentifier());
-        product.setQuantity(inventoryMap.get(i).getQuantity());
+    private void setupProduct(Map<String, Product> inventoryMap, Customer customer, Product product, String slotID) {
+        product.setName(inventoryMap.get(slotID).getName());
+        product.setType(inventoryMap.get(slotID).getType());
+        product.setPrice(inventoryMap.get(slotID).getPrice());
+        product.setSlotIdentifier(inventoryMap.get(slotID).getSlotIdentifier());
+        product.setQuantity(inventoryMap.get(slotID).getQuantity());
         product.printMessage(customer);
     }
 
     // hit finish transaction - got a message money returned, moneyProvided =0,
-    public void finishTransaction(Product product, Customer customer, CoinBank coinBank){
+    public void finishTransaction(Product product, Customer customer, CoinBank coinBank, Map<String, Product> inventoryMap){
         BigDecimal amountToReturn = customer.getMoneyProvided();
         BigDecimal amountToSpend = product.getPrice();
         /*
         update inventoryMap Start
         */
-//        product.getQuantity()
 
-        
+//        inventoryMap.get(slotID).setQuantity(product.getQuantity());
+
         /*
         update inventoryMap end
         */

@@ -32,15 +32,14 @@ public class VendingMachineCLI {
 	}
 
 	public void run() {
+		Inventory inventory = new Inventory();
+		Map<String, Product> inventoryMap = inventory.readFile();
 		while (true) {
-			// set date format
-			DateFormat time = new SimpleDateFormat("MM/dd/yyyy hh:mm:ss aa");
-			String dateString = time.format(new Date()).toString();
 
 			String choice = (String) menu.getChoiceFromOptions(MAIN_MENU_OPTIONS);
-			Inventory inventory = new Inventory();
+//			Inventory inventory = new Inventory();
 			CoinBank coinBank = new CoinBank();
-			Map<Integer, Product> inventoryMap = inventory.readFile();
+//			Map<String, Product> inventoryMap = inventory.readFile();
 			String filePath = "Log.txt";
 
 			File logFile = new File(filePath);
@@ -71,7 +70,7 @@ public class VendingMachineCLI {
 
 					} else if (purchaseChoice.equals(PURCHASE_MENU_OPTIONS_FINISH_TRANSACTION)) {
 							//receive change, money provided to zero, update coinbank balance
-						customer.finishTransaction(product,customer,coinBank);
+						customer.finishTransaction(product,customer,coinBank,inventoryMap);
 						writeDataToFile(logFile, customer);
 
 
