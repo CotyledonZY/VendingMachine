@@ -17,7 +17,6 @@ public class AuditLog {
 
     // constructor
 
-
     public AuditLog(String auditMessage) {
         this.time = Calendar.getInstance().getTime();
         this.auditMessage = auditMessage;

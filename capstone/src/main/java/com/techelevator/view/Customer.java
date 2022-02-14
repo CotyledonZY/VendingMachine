@@ -74,7 +74,7 @@ public class Customer {
                 if (slotIdentifierPicked.equals(inventoryMap.get(i).getSlotIdentifier())) {
                     //item sold out
                     if (inventoryMap.get(i).getQuantity() == 0){
-                        System.out.println(inventoryMap.get(i).getName() + " is Sold Out :(");
+                        System.out.println(inventoryMap.get(i).getName() + " are Sold Out :(");
                     } else {
 
                         // product available, - dispense , printMessage
@@ -97,7 +97,10 @@ public class Customer {
 
                         // update  quantity of item,
                         inventoryMap.get(i).setQuantity(product.getQuantity()-1);
-                        auditLogs.add(new AuditLog(product.getName()+" "+product.getSlotIdentifier()+" $"+ product.getPrice()+ " $"+ customer.getMoneyProvided()));
+                        if (product.getPrice().compareTo(moneyProvided)!=1 ){
+                            auditLogs.add(new AuditLog(product.getName()+" "+product.getSlotIdentifier()
+                                    +" $"+ product.getPrice()+ " $"+ customer.getMoneyProvided()));
+                        }
                     }
                     matchFound = true;
                 }
@@ -123,13 +126,22 @@ public class Customer {
     public void finishTransaction(Product product, Customer customer, CoinBank coinBank){
         BigDecimal amountToReturn = customer.getMoneyProvided();
         BigDecimal amountToSpend = product.getPrice();
+        /*
+        update inventoryMap Start
+        */
+//        product.getQuantity()
+
+        
+        /*
+        update inventoryMap end
+        */
+
         // ATTENTION CHANGED! - here needed a if/else statement,
         // if customer feed money but didn't buy anything,and hit finish transaction
         if (amountToSpend==null){
-            System.out.println("Not interested on any item? Hope to see you next time!");
+            System.out.println("Not interested in another item? Hope to see you next time!");
             System.out.println("Here is your change: $" + amountToReturn);
             coinBank.subtractFromCoinBank(amountToReturn);
-
         }else {
             coinBank.addToCoinBank(amountToSpend);
 

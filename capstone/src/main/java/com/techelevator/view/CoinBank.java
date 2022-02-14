@@ -40,10 +40,10 @@ public class CoinBank {
         BigDecimal remainderFromQuarter =BigDecimal.valueOf(0);
 
 
-        if (amountToReturnInCent.compareTo(quarters) == 1) {
+        if (amountToReturnInCent.compareTo(quarters) != -1) {
             quarterAmount = (amountToReturnInCent.divide(quarters,0, RoundingMode.DOWN));
             remainderFromQuarter = amountToReturnInCent.remainder(quarters);
-            if (remainderFromQuarter.compareTo(dimes) == 1) {
+            if (remainderFromQuarter.compareTo(dimes) != -1) {
                 dimesAmount = (remainderFromQuarter.divide(dimes,0, RoundingMode.DOWN));
                 remainderFromDimes = remainderFromQuarter.remainder(dimes);
                 nickelsAmount = (remainderFromDimes.divide(nickels,0, RoundingMode.DOWN));
@@ -52,13 +52,12 @@ public class CoinBank {
             }
             System.out.println(quarterAmount + " quarters, " + dimesAmount
                     + " dimes, " + nickelsAmount + " nickels.");
-        } else if (amountToReturnInCent.compareTo(dimes) == 1) {
+        } else if (amountToReturnInCent.compareTo(dimes) != -1) {
             dimesAmount = (amountToReturnInCent.divide(dimes,0, RoundingMode.DOWN));
             remainderFromDimes = amountToReturnInCent.remainder(dimes);
             nickelsAmount = (remainderFromDimes.divide(nickels,0, RoundingMode.DOWN));
             System.out.println( dimesAmount + " dimes, " + nickelsAmount + " nickels.");
         } else {
-//            nickelsAmount = BigDecimal.valueOf(1);
             nickelsAmount = (amountToReturnInCent.divide(nickels,0, RoundingMode.DOWN));
             System.out.println( nickelsAmount + " nickels.");
         }
