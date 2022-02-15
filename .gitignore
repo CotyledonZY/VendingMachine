@@ -29,6 +29,7 @@ bin/
 obj/
 packages/
 .vs/
+.idea/workspace.xml
 
 .DS_Store
 node_modules
