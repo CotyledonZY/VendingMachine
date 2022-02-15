@@ -53,7 +53,7 @@ public class Inventory {
 
         for(Map.Entry<String, Product> singleProduct: inventoryMap.entrySet()) {
             if (singleProduct.getValue().getQuantity() == 0) {
-                System.out.println("Product name: " + singleProduct.getValue().getName() + "SOLD OUT");
+                System.out.println("Product name: " + singleProduct.getValue().getName() + " SOLD OUT");
             } else {
                 System.out.println("Slot identifier: " + singleProduct.getValue().getSlotIdentifier() + " || " + singleProduct.getValue().getName()
                         +", Price: $" + singleProduct.getValue().getPrice()

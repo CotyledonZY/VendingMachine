@@ -11,8 +11,26 @@ import java.util.Scanner;
 import java.util.TreeMap;
 
 public class CustomerTest {
-    Customer customer = new Customer();
-    BigDecimal moneyProvided = new BigDecimal(0.00).setScale(2, RoundingMode.UP);
+    Customer customer;
+    Product productA;
+    Product productB;
+    @Before
+    public void create_Customer_Test() {
+        customer = new Customer();
+        BigDecimal moneyProvided = new BigDecimal(0.00).setScale(2, RoundingMode.UP);
+        productA = new Chip();
+        productB = new Candy();
+        productA.setName("Potato Crisps");
+        productB.setName("Cowtales");
+        productA.setPrice(BigDecimal.valueOf(3.05));
+        productB.setPrice(BigDecimal.valueOf(1.50));
+        productA.setType("Chip");
+        productB.setType("Candy");
+        productA.setSlotIdentifier("A");
+        productB.setSlotIdentifier("B");
+        productB.setQuantity(0);
+
+    }
     //feedMoney - happy path; something with decimal; words/a letter; 0; negative number;
 
     @Test
@@ -39,12 +57,13 @@ public class CustomerTest {
 
     //selectProduct - happy path; invalid selection; product sold out;
 
-    @Test
+ /*   @Test
     public void selectProduct(){
         BigDecimal moneyProvided = new BigDecimal(6.00).setScale(2, RoundingMode.UP);
        // Map<String, Product> inventoryMap, BigDecimal moneyProvided, Scanner userInput,Customer customer
         Map<String, Product> inventoryMap = new TreeMap<>();
-        Product productA = new Chip();
+
+        *//*        Product productA = new Chip();
         Product productB = new Candy();
         productA.setName("Potato Crisps");
         productB.setName("Cowtales");
@@ -54,7 +73,7 @@ public class CustomerTest {
         productB.setType("Candy");
         productA.setSlotIdentifier("A");
         productB.setSlotIdentifier("B");
-        productB.setQuantity(0);
+        productB.setQuantity(0);*//*
 
         Scanner userInput = new Scanner("A");
         Scanner userInput2 = new Scanner("B");
@@ -64,14 +83,10 @@ public class CustomerTest {
 
         Assert.assertEquals(productA, customer.selectProduct(inventoryMap, new BigDecimal(6.00).setScale(2, RoundingMode.UP), userInput, customer));
         Assert.assertEquals("**** Slot identifier does not exist - Please enter a valid slot identifier ****", customer.selectProduct(inventoryMap, moneyProvided, userInput3, customer));
-        Assert.assertEquals("B are Sold Out :(", customer.selectProduct(inventoryMap, moneyProvided, userInput2, customer));
+        Assert.assertEquals("B are Sold Out :(", customer.selectProduct(inventoryMap, moneyProvided, userInput2, customer));*/
 
 
 
     }
-
-    //setupProduct - is all information in product?
-    //finishTransaction - happy path; customer didn't purchase anything?;
-}
 
 

@@ -70,7 +70,7 @@ public class VendingMachineCLI {
 
 					} else if (purchaseChoice.equals(PURCHASE_MENU_OPTIONS_FINISH_TRANSACTION)) {
 							//receive change, money provided to zero, update coinbank balance
-						customer.finishTransaction(product,customer,coinBank,inventoryMap);
+						customer.finishTransaction(product,customer,coinBank);
 						writeDataToFile(logFile, customer);
 
 
