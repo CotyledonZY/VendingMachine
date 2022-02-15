@@ -10,6 +10,8 @@ import java.math.BigDecimal;
 import java.text.DateFormat;
 import java.util.*;
 import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Calendar;
 
 
 
@@ -18,7 +20,8 @@ public class VendingMachineCLI {
 	private static final String MAIN_MENU_OPTION_DISPLAY_ITEMS = "Display Vending Machine Items";
 	private static final String MAIN_MENU_OPTION_PURCHASE = "Purchase";
 	private static final String MAIN_MENU_OPTION_EXIT = "Exit";
-	private static final String[] MAIN_MENU_OPTIONS = { MAIN_MENU_OPTION_DISPLAY_ITEMS, MAIN_MENU_OPTION_PURCHASE, MAIN_MENU_OPTION_EXIT };
+	private static final String MAIN_MENU_OPTION_SALES_REPORT = "Sales Report";
+	private static final String[] MAIN_MENU_OPTIONS = { MAIN_MENU_OPTION_DISPLAY_ITEMS, MAIN_MENU_OPTION_PURCHASE, MAIN_MENU_OPTION_EXIT,MAIN_MENU_OPTION_SALES_REPORT  };
 
 	private static final String PURCHASE_MENU_OPTIONS_FEED_MONEY = "Feed Money";
 	private static final String PURCHASE_MENU_OPTIONS_SELECT_PRODUCT = "Select Product";
@@ -37,9 +40,10 @@ public class VendingMachineCLI {
 		while (true) {
 
 			String choice = (String) menu.getChoiceFromOptions(MAIN_MENU_OPTIONS);
-//			Inventory inventory = new Inventory();
+			Customer customer = new Customer();
+
 			CoinBank coinBank = new CoinBank();
-//			Map<String, Product> inventoryMap = inventory.readFile();
+
 			String filePath = "Log.txt";
 
 			File logFile = new File(filePath);
@@ -53,7 +57,7 @@ public class VendingMachineCLI {
 				inventory.displayItems(inventoryMap);
 
 			} else if (choice.equals(MAIN_MENU_OPTION_PURCHASE)) {
-				Customer customer = new Customer();
+//				Customer customer = new Customer();
 				Scanner userInput = new Scanner(System.in);
 				Product product = new Product();
 				while (true) {
@@ -72,8 +76,6 @@ public class VendingMachineCLI {
 							//receive change, money provided to zero, update coinbank balance
 						customer.finishTransaction(product,customer,coinBank);
 						writeDataToFile(logFile, customer);
-
-
 						// return to main menu
 						break;
 					}
@@ -81,7 +83,13 @@ public class VendingMachineCLI {
 
 			} else if (choice.equals(MAIN_MENU_OPTION_EXIT)){
 				break;
+			}else if (choice.equals(MAIN_MENU_OPTION_SALES_REPORT)){
+				// print salesReport
+				generateSalesReport(customer);
+				System.out.println("hello");
+
 			}
+
 		}
 	}
 
@@ -98,22 +106,29 @@ public class VendingMachineCLI {
 		}
 	}
 
-//		try(PrintWriter writer = new PrintWriter(new FileOutputStream(logFile, true))){
-////			writer.println(dateString + " FEED MONEY: $" + amountToDeposit + " $"+ customer.getMoneyProvided());
-////			writer.println(dateString + " " + product.getName() + " "
-////					+ product.getSlotIdentifier() + " $" + product.getPrice() + " $" + customer.getMoneyProvided());
-////			BigDecimal totalAmountToReturn = new BigDecimal(0.00);
-////			totalAmountToReturn.equals(customer.getMoneyProvided());
-////			writer.println(dateString + " GIVE CHANGE: $" + totalAmountToReturn+ " $"
-////					+ customer.getMoneyProvided());
-//			for (AuditLog auditMessage: auditLogs){
-//				writer.println(auditMessage);
-//			}
-//
-//		}catch (Exception e){
-//			System.out.println(e.getMessage());
-//		}
-//	}
+
+	// create method for print sales report
+	public void generateSalesReport(Customer customer){
+		DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy hh:mm:ss aa");
+		Date time = Calendar.getInstance().getTime();
+		String reportFilePath = "C:/Users/Student/workspace/module-1-capstone-team-5/capstone";
+		try {
+			String newFileName;
+			newFileName = dateFormat.format(time) + " Sales report.txt" ;
+			File newFile = new File(reportFilePath, newFileName);
+			newFile.createNewFile();
+
+			// add info in each report file
+			try (PrintWriter writer = new PrintWriter(newFile)){
+				for (SalesReport item : customer.salesReport){
+					writer.println(item.printInReport());
+				}
+			}
+		} catch (Exception e){
+			System.out.println(e.getMessage());
+		}
+	}
+
 
 	public static void main(String[] args) throws FileNotFoundException {
 		Menu menu = new Menu(System.in, System.out);

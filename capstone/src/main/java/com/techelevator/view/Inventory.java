@@ -12,6 +12,7 @@ public class Inventory {
     // instance variables
     private Map<String, Product> inventoryMap = new TreeMap<String, Product>();
 
+
     // constructor
     public Inventory() {
     }

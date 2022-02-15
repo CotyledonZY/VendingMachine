@@ -25,7 +25,7 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../ziye-liu-student-code/module-1/17_File_IO_Writing/exercise" />
   </component>
   <component name="RunManager" selected="Application.VendingMachineCLI">
     <configuration name="VendingMachineCLI" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
@@ -89,9 +89,9 @@
     <recent_temporary>
       <list>
         <item itemvalue="Application.VendingMachineCLI" />
+        <item itemvalue="JUnit.MenuTest" />
         <item itemvalue="JUnit.CoinBankTest" />
         <item itemvalue="JUnit.CustomerTest" />
-        <item itemvalue="JUnit.MenuTest" />
       </list>
     </recent_temporary>
   </component>

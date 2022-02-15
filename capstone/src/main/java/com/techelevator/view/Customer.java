@@ -11,6 +11,7 @@ public class Customer {
     private BigDecimal moneyProvided = new BigDecimal(0.00).setScale(2, RoundingMode.UP);
     // create a List to hold audit message
     public List<AuditLog> auditLogs = new ArrayList<AuditLog>();
+    public List<SalesReport> salesReport = new ArrayList<SalesReport>();
 
     public BigDecimal getMoneyProvided() {
         return moneyProvided;
@@ -45,7 +46,7 @@ public class Customer {
         return moneyProvided;
     }
 
-    public Product selectProduct (Map<String, Product> inventoryMap, BigDecimal moneyProvided, Scanner userInput,Customer customer){
+    public Product selectProduct (Map<String, Product> inventoryMap, BigDecimal moneyProvided, Scanner userInput,Customer customer ){
         // list available products
         Product product = new Product();
         if (moneyProvided.equals(BigDecimal.ZERO)) {
@@ -53,6 +54,8 @@ public class Customer {
         } else {
             // loop through the map
             for(Map.Entry<String, Product> singleProduct: inventoryMap.entrySet()) {
+                // add product info to salesReport list
+                salesReport.add(new SalesReport(product,0));
                 // only print products available
                 if (singleProduct.getValue().getQuantity()>0) {
                     System.out.println("Slot identifier: " + singleProduct.getValue().getSlotIdentifier() + " || "
@@ -99,6 +102,15 @@ public class Customer {
                             inventoryMap.get(slotID).setQuantity(product.getQuantity()-1);
                             auditLogs.add(new AuditLog(product.getName()+" "+product.getSlotIdentifier()
                                     +" $"+ product.getPrice()+ " $"+ customer.getMoneyProvided()));
+                            // update salesReport info by looping thru the List
+                            for (SalesReport item: salesReport ){
+                                if (item.productName == product.getName()){
+                                    int numbOfSales = item.getNumberOfSales();
+                                    item.setNumberOfSales(numbOfSales ++);
+                                    item.reportMessage = item.productName + " | " + item.getNumberOfSales();
+                                }
+                            }
+
                         }
                     }
                     matchFound = true;
