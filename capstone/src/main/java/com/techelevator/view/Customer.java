@@ -11,7 +11,6 @@ public class Customer {
     private BigDecimal moneyProvided = new BigDecimal(0.00).setScale(2, RoundingMode.UP);
     // create a List to hold audit message
     public List<AuditLog> auditLogs = new ArrayList<AuditLog>();
-    public List<SalesReport> salesReport = new ArrayList<SalesReport>();
 
     public BigDecimal getMoneyProvided() {
         return moneyProvided;
@@ -22,6 +21,7 @@ public class Customer {
     }
 
     public Customer() {
+
     }
 
     public Customer(BigDecimal moneyProvided) {
@@ -54,8 +54,6 @@ public class Customer {
         } else {
             // loop through the map
             for(Map.Entry<String, Product> singleProduct: inventoryMap.entrySet()) {
-                // add product info to salesReport list
-                salesReport.add(new SalesReport(product,0));
                 // only print products available
                 if (singleProduct.getValue().getQuantity()>0) {
                     System.out.println("Slot identifier: " + singleProduct.getValue().getSlotIdentifier() + " || "
@@ -78,7 +76,6 @@ public class Customer {
                     if (inventoryMap.get(slotID).getQuantity() == 0){
                         System.out.println(inventoryMap.get(slotID).getName() + " are Sold Out :(");
                     } else {
-
                         // product available, - dispense , printMessage
                         if (inventoryMap.get(slotID).getType().equals("Drink")){
                             product = new Drink();
@@ -100,17 +97,10 @@ public class Customer {
                         // update  quantity of item,
                         if (product.getPrice().compareTo(moneyProvided)!=1 ){
                             inventoryMap.get(slotID).setQuantity(product.getQuantity()-1);
+                            inventoryMap.get(slotID).sell();
+
                             auditLogs.add(new AuditLog(product.getName()+" "+product.getSlotIdentifier()
                                     +" $"+ product.getPrice()+ " $"+ customer.getMoneyProvided()));
-                            // update salesReport info by looping thru the List
-                            for (SalesReport item: salesReport ){
-                                if (item.productName == product.getName()){
-                                    int numbOfSales = item.getNumberOfSales();
-                                    item.setNumberOfSales(numbOfSales ++);
-                                    item.reportMessage = item.productName + " | " + item.getNumberOfSales();
-                                }
-                            }
-
                         }
                     }
                     matchFound = true;
@@ -156,4 +146,6 @@ public class Customer {
         auditLogs.add(new AuditLog("GIVE CHANGE: $" + moneyProvided + " $0.00"));
         customer.setMoneyProvided(BigDecimal.valueOf(0));
     }
+
+
 }

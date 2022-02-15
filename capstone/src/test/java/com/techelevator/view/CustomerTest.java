@@ -31,7 +31,7 @@ public class CustomerTest {
         productB.setQuantity(0);
 
     }
-    //feedMoney - happy path; something with decimal; words/a letter; 0; negative number;
+
 
     @Test
     public void feedMoneyTests(){
@@ -45,7 +45,7 @@ public class CustomerTest {
         Assert.assertEquals(BigDecimal.valueOf(2.00).setScale(2, RoundingMode.UP), moneyProvided3);
     }
 
-    //changeReturned - declare amountToSpend as zero or regular number
+
 
     @Test
     public void changeReturnedTests(){
@@ -54,37 +54,6 @@ public class CustomerTest {
         Assert.assertEquals(BigDecimal.valueOf(0), amountToSpend1);
         Assert.assertEquals(BigDecimal.valueOf(2), amountToSpend2);
     }
-
-    //selectProduct - happy path; invalid selection; product sold out;
-
- /*   @Test
-    public void selectProduct(){
-        BigDecimal moneyProvided = new BigDecimal(6.00).setScale(2, RoundingMode.UP);
-       // Map<String, Product> inventoryMap, BigDecimal moneyProvided, Scanner userInput,Customer customer
-        Map<String, Product> inventoryMap = new TreeMap<>();
-
-        *//*        Product productA = new Chip();
-        Product productB = new Candy();
-        productA.setName("Potato Crisps");
-        productB.setName("Cowtales");
-        productA.setPrice(BigDecimal.valueOf(3.05));
-        productB.setPrice(BigDecimal.valueOf(1.50));
-        productA.setType("Chip");
-        productB.setType("Candy");
-        productA.setSlotIdentifier("A");
-        productB.setSlotIdentifier("B");
-        productB.setQuantity(0);*//*
-
-        Scanner userInput = new Scanner("A");
-        Scanner userInput2 = new Scanner("B");
-        Scanner userInput3 = new Scanner("C");
-        inventoryMap.put ("A", productA);
-        inventoryMap.put ("B", productB);
-
-        Assert.assertEquals(productA, customer.selectProduct(inventoryMap, new BigDecimal(6.00).setScale(2, RoundingMode.UP), userInput, customer));
-        Assert.assertEquals("**** Slot identifier does not exist - Please enter a valid slot identifier ****", customer.selectProduct(inventoryMap, moneyProvided, userInput3, customer));
-        Assert.assertEquals("B are Sold Out :(", customer.selectProduct(inventoryMap, moneyProvided, userInput2, customer));*/
-
 
 
     }

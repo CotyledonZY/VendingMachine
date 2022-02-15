@@ -9,6 +9,7 @@ public class Product {
     private BigDecimal price;
     private String type;
     private int quantity = 5;
+    private int numberSold;
 
     // getter
     public String getSlotIdentifier() {
@@ -31,6 +32,10 @@ public class Product {
         return quantity;
     }
 
+    public int getNumberSold() {
+        return numberSold;
+    }
+
     // setter
     public void setSlotIdentifier(String slotIdentifier) {
         this.slotIdentifier = slotIdentifier;
@@ -38,6 +43,10 @@ public class Product {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public void setNumberSold(int numberSold) {
+        this.numberSold = numberSold;
     }
 
     public void setPrice(BigDecimal price) {
@@ -54,10 +63,14 @@ public class Product {
 
     // default constructor
     public Product() {
+        this.numberSold =0;
     }
 
     public void printMessage(Customer customer){
-        //dispense item name, cost, getMoneyProvided + subclass Message
+    }
+
+    public void sell(){
+        this.numberSold +=1;
     }
 
 }

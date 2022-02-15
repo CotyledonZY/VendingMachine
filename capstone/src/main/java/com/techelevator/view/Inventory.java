@@ -1,8 +1,6 @@
 package com.techelevator.view;
 
 import java.io.File;
-import java.io.FileOutputStream;
-import java.io.PrintWriter;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.*;
@@ -11,7 +9,6 @@ import java.util.*;
 public class Inventory {
     // instance variables
     private Map<String, Product> inventoryMap = new TreeMap<String, Product>();
-
 
     // constructor
     public Inventory() {
@@ -37,8 +34,6 @@ public class Inventory {
                 product.setType(productInfo[3]);
                 // add to map
                 inventoryMap.put(product.getSlotIdentifier(), product);
-
-
             }
         } catch (Exception e) {
             System.out.println("Error occurred");
@@ -47,8 +42,7 @@ public class Inventory {
     }
         
         
-        // Display items - loop through Map for listing all items
-
+    // Display items - loop through Map for listing all items
     public void displayItems(Map<String, Product> inventoryMap) {
         this.inventoryMap = inventoryMap;
 
@@ -59,10 +53,10 @@ public class Inventory {
                 System.out.println("Slot identifier: " + singleProduct.getValue().getSlotIdentifier() + " || " + singleProduct.getValue().getName()
                         +", Price: $" + singleProduct.getValue().getPrice()
                         + ", Quantity remaining: " + singleProduct.getValue().getQuantity());
+
             }
 
         }
     }
-
 
 }
