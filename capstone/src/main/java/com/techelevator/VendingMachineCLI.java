@@ -35,6 +35,7 @@ public class VendingMachineCLI {
 	public void run() {
 		Inventory inventory = new Inventory();
 		Map<String, Product> inventoryMap = inventory.readFile();
+		Scanner userInput = new Scanner(System.in);
 
 
 		while (true) {
@@ -52,7 +53,7 @@ public class VendingMachineCLI {
 				inventory.displayItems(inventoryMap);
 
 			} else if (choice.equals(MAIN_MENU_OPTION_PURCHASE)) {
-				Scanner userInput = new Scanner(System.in);
+//				Scanner userInput = new Scanner(System.in);
 				Product product = new Product();
 				while (true) {
 					String purchaseChoice = (String) menu.getChoiceFromPurchaseMenuOptions(PURCHASE_MENU_OPTIONS, customer);
@@ -89,6 +90,7 @@ public class VendingMachineCLI {
 			}
 
 		}
+		userInput.close();
 	}
 
 
