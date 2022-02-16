@@ -2,6 +2,7 @@ package com.techelevator.view;
 
 import java.io.File;
 import java.io.PrintWriter;
+import java.math.BigDecimal;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -47,6 +48,7 @@ public class SalesReport {
                     writer.println(item.getName() + " | " + item.getNumberSold());
 
                 }
+
             }
         } catch (Exception e){
             System.out.println(e.getMessage());

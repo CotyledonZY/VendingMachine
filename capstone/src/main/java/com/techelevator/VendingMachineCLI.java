@@ -40,14 +40,10 @@ public class VendingMachineCLI {
 		while (true) {
 
 			String choice = (String) menu.getChoiceFromOptions(MAIN_MENU_OPTIONS);
-
-
 			CoinBank coinBank = new CoinBank();
 
 			String filePath = "Log.txt";
-
 			File logFile = new File(filePath);
-
 
 			double amountToDeposit = 0;
 
@@ -62,7 +58,12 @@ public class VendingMachineCLI {
 					String purchaseChoice = (String) menu.getChoiceFromPurchaseMenuOptions(PURCHASE_MENU_OPTIONS, customer);
 					if (purchaseChoice.equals(PURCHASE_MENU_OPTIONS_FEED_MONEY)) {
 						System.out.println("Please deposit money in whole dollar amounts: ");
-						amountToDeposit = Double.parseDouble(userInput.nextLine());
+
+						try{
+							amountToDeposit = Double.parseDouble(userInput.nextLine());
+						}catch(NumberFormatException e){
+							System.out.println("Oops, please enter again.");
+						}
 						customer.feedMoney(amountToDeposit);
 
 					} else if (purchaseChoice.equals(PURCHASE_MENU_OPTIONS_SELECT_PRODUCT)) {

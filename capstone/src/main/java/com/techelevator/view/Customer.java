@@ -9,7 +9,6 @@ import java.util.Scanner;
 
 public class Customer {
     private BigDecimal moneyProvided = new BigDecimal(0.00).setScale(2, RoundingMode.UP);
-    // create a List to hold audit message
     public List<AuditLog> auditLogs = new ArrayList<AuditLog>();
 
     public BigDecimal getMoneyProvided() {
@@ -30,15 +29,16 @@ public class Customer {
 
     public BigDecimal feedMoney (double amountToDeposit){
 
-        if (amountToDeposit > 0 && amountToDeposit % 1 == 0){
-            moneyProvided = moneyProvided.add(BigDecimal.valueOf(amountToDeposit)).setScale(2, RoundingMode.UP);
-            // add auditLog message
-            auditLogs.add(new AuditLog("FEED MONEY: $" + amountToDeposit + " $"+ moneyProvided));
+            if (amountToDeposit > 0 && amountToDeposit % 1 == 0) {
+                moneyProvided = moneyProvided.add(BigDecimal.valueOf(amountToDeposit)).setScale(2, RoundingMode.UP);
+                // add auditLog message
+                auditLogs.add(new AuditLog("FEED MONEY: $" + amountToDeposit + " $" + moneyProvided));
 
-        } else {
-            System.out.println("****Amount entered is not a whole dollar amount****");
-        }
-        return moneyProvided;
+            } else {
+                System.out.println("****Amount entered is not a whole dollar amount****");
+            }
+            return moneyProvided;
+
     }
 
     public BigDecimal changeReturned (BigDecimal amountToSpend){
